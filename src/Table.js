@@ -1,47 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
+const useSortableTable = (data, config = null) => {
+  const [sortConfig, setSortConfig] = useState(config);
+
+  const sortedData = useMemo(() => {
+    const sortableData = [...data];
+
+    if (sortConfig !== null) {
+      sortableData.sort((a, b) => {
+        if (a[sortConfig.field] < b[sortConfig.field]) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        }
+        if (a[sortConfig.field] > b[sortConfig.field]) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+
+    return sortableData;
+  }, [data, sortConfig]);
+
+  const requestSort = field => {
+    let direction = 'ascending';
+    if (sortConfig && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ field, direction });
+  };
+
+  return { sortedData, requestSort };
+};
+
 const Table = props => {
-  const [sortedField, setSortedField] = useState(null);
-  const { products } = props;
-  const sortedProducts = [...products];
-
-  if (sortedField !== null) {
-    sortedProducts.sort((a, b) => {
-      if (a[sortedField] < b[sortedField]) return -1;
-      if (a[sortedField] > b[sortedField]) return 1;
-      return 0;
-    });
-  }
-
+  const { sortedData, requestSort } = useSortableTable(props.products);
   return (
     <table>
       <caption>Our products</caption>
       <thead>
         <tr>
           <th>
-            <button type="button" onClick={() => setSortedField('name')}>
+            <button type="button" onClick={() => requestSort('name')}>
               Name
             </button>
           </th>
           <th>
-            <button type="button" onClick={() => setSortedField('price')}>
+            <button type="button" onClick={() => requestSort('price')}>
               Price
             </button>
           </th>
           <th>
-            <button type="button" onClick={() => setSortedField('stock')}>
+            <button type="button" onClick={() => requestSort('stock')}>
               In Stock
             </button>
           </th>
         </tr>
       </thead>
       <tbody>
-        {products.map(product => (
-          <tr key={product.id}>
-            <td>{product.name}</td>
-            <td>{product.price}</td>
-            <td>{product.stock}</td>
+        {sortedData.map(item => (
+          <tr key={item.id}>
+            <td>{item.name}</td>
+            <td>{item.price}</td>
+            <td>{item.stock}</td>
           </tr>
         ))}
       </tbody>
