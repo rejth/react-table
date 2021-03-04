@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Table from './Table';
-import SearchPanel from './SearchPanel';
+import Table from '../Table';
+import SearchPanel from '../SearchPanel';
 
 const useSearchedData = () => {
   const products = [

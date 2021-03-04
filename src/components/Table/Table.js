@@ -37,22 +37,31 @@ const Table = props => {
   const { products } = props;
   const { sortedData, requestSort } = useSortableTable(products);
   return (
-    <table>
-      <caption>Our products</caption>
+    <table className="table table-bordered border-primary">
       <thead>
-        <tr>
-          <th>
-            <button type="button" onClick={() => requestSort('name')}>
+        <tr className="table-primary">
+          <th scope="col">#</th>
+          <th scope="col">
+            <button
+              className="btn btn-primary"
+              onClick={() => requestSort('name')}
+            >
               Name
             </button>
           </th>
-          <th>
-            <button type="button" onClick={() => requestSort('price')}>
+          <th scope="col">
+            <button
+              className="btn btn-primary"
+              onClick={() => requestSort('price')}
+            >
               Price
             </button>
           </th>
-          <th>
-            <button type="button" onClick={() => requestSort('stock')}>
+          <th scope="col">
+            <button
+              className="btn btn-primary"
+              onClick={() => requestSort('stock')}
+            >
               In Stock
             </button>
           </th>
@@ -61,6 +70,7 @@ const Table = props => {
       <tbody>
         {sortedData.map(item => (
           <tr key={item.id}>
+            <th scope="row">{item.id}</th>
             <td>{item.name}</td>
             <td>{item.price}</td>
             <td>{item.stock}</td>

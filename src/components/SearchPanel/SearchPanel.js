@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './SearchPanel.css';
 
 const SearchPanel = props => {
   const { onSearch } = props;
