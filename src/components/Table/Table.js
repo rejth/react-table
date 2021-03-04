@@ -40,7 +40,14 @@ const Table = props => {
     <table className="table table-bordered border-primary">
       <thead>
         <tr className="table-primary">
-          <th scope="col">#</th>
+          <th scope="col">
+            <button
+              className="btn btn-primary"
+              onClick={() => requestSort('id')}
+            >
+              ID
+            </button>
+          </th>
           <th scope="col">
             <button
               className="btn btn-primary"
