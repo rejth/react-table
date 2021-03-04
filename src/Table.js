@@ -34,7 +34,8 @@ const useSortableTable = (data, config = null) => {
 };
 
 const Table = props => {
-  const { sortedData, requestSort } = useSortableTable(props.products);
+  const { products } = props;
+  const { sortedData, requestSort } = useSortableTable(products);
   return (
     <table>
       <caption>Our products</caption>
