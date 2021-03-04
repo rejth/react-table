@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/SearchPanel/SearchPanel.css"],"names":[],"mappings":"AAAA,cACE,SAAU,CACV,eAAgB,CAChB,kBACF","file":"main.27b057d9.chunk.css","sourcesContent":[".search-input {\r\n  width: 50%;\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n}\r\n"]}
