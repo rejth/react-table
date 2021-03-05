@@ -1,1 +1,3 @@
-# Dynamic table React app
+# Sortable and filtered table
+
+React + React Hooks
