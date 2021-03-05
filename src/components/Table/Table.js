@@ -43,6 +43,7 @@ const useSortableTable = (data, config = null) => {
 const Table = props => {
   const { products } = props;
   const { sortedData, requestSort } = useSortableTable(products);
+
   return (
     <table className="table table-bordered border-primary">
       <thead>

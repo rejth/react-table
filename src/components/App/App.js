@@ -4,6 +4,7 @@ import SearchPanel from '../SearchPanel';
 import Pagination from '../Pagination';
 
 const useSearchedData = () => {
+  // initial data
   const products = [
     { id: 1, name: 'Cheese', price: 4.9, stock: 20 },
     { id: 2, name: 'Milk', price: 1.9, stock: 32 },
@@ -16,11 +17,12 @@ const useSearchedData = () => {
     { id: 9, name: 'Coffee', price: 18, stock: 43 },
   ];
 
+  // state
   const [term, setTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
+  // обновление state
   const onSearchChange = term => setTerm(term);
-
   const onTogglePage = id => setCurrentPage(id);
 
   // переключение страниц
