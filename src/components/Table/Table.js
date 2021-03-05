@@ -1,19 +1,25 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
+// user hook для инкапсуляции логики сортировки таблицы
+// полезно для гибкого переиспользования
 const useSortableTable = (data, config = null) => {
   const [sortConfig, setSortConfig] = useState(config);
 
+  // кэкшириуем результат сортировки с помощью useMemo()
+  // идея в том, чтобы не запускать дорогостоящие вычисления (сортировку) при каждом рендере компонента,
+  // если на вход таблицы придут те же данные, т.о. сортировка запустится только при новых данных или state
   const sortedData = useMemo(() => {
     const sortableData = [...data];
 
+    // сортировка данных
     if (sortConfig !== null) {
       sortableData.sort((a, b) => {
         if (a[sortConfig.field] < b[sortConfig.field]) {
-          return sortConfig.direction === 'ascending' ? -1 : 1;
+          return sortConfig.direction === 'asc' ? -1 : 1;
         }
         if (a[sortConfig.field] > b[sortConfig.field]) {
-          return sortConfig.direction === 'ascending' ? 1 : -1;
+          return sortConfig.direction === 'asc' ? 1 : -1;
         }
         return 0;
       });
@@ -22,10 +28,11 @@ const useSortableTable = (data, config = null) => {
     return sortableData;
   }, [data, sortConfig]);
 
+  // изменяем направление сортировки при клике и обновляем state
   const requestSort = field => {
-    let direction = 'ascending';
-    if (sortConfig && sortConfig.direction === 'ascending') {
-      direction = 'descending';
+    let direction = 'asc';
+    if (sortConfig && sortConfig.direction === 'asc') {
+      direction = 'desc';
     }
     setSortConfig({ field, direction });
   };
