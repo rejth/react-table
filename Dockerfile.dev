@@ -1,0 +1,12 @@
+# docker build -f Dockerfile.dev -t react-table:dev .
+# docker run -p 3000:3000 -d react-table:dev
+
+# dev environment
+FROM node:12-alpine as builder
+WORKDIR /app
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+RUN npm install
+COPY . /app
+EXPOSE 3000
+CMD ["npm", "run", "start"]
